@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_property_property_form">
+            <field name="name">property.property.form</field>
+            <field name="model">property.property</field>
+            <field name="arch" type="xml">
+                <form string="Property">
+                    <header>
+                        <button name="action_sold" type="object" string="Sold"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" string="Property Name"/>
+                            <h1>
+                                <field class="text-break" options="{'line_breaks': False}" widget="text" name="name" placeholder="e.g. Luxury Villa"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="postcode" widget="my_text_field"/>
+                                <field name="date_availability"/>
+                                <field name="bedrooms"/>
+                                <field name="living_area"/>
+                                <field name="garden_orientation"/>
+                            </group>
+                            <group>
+                                <field name="expected_price"/>
+                                <field name="selling_price"/>
+                                <field name="facades"/>
+                                <field name="garage"/>
+                                <field name="garden" widget="late_boolean"/>
+                                <field name="garden_area"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" widget="my_text_field"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_property_property_tree">
+            <field name="name">property.property.tree</field>
+            <field name="model">property.property</field>
+            <field name="arch" type="xml">
+                <tree string="Property" multi_edit="1" sample="1" decoration-success="garden==True">
+                    <field name="name"/>
+                    <field name="garden"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="property_property_view_search" model="ir.ui.view">
+            <field name="name">property.property.search</field>
+            <field name="model">property.property</field>
+            <field name="arch" type="xml">
+                <search string="Test FIlter">
+                    <filter string="Type" name="selling_price"
+                            domain="[('selling_price', '=', 10)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- PROPERTY VIEWS -->
+
+        <record model="ir.actions.act_window" id="action_property_property_view">
+            <field name="name">Property</field>
+            <field name="res_model">property.property</field>
+            <field name="view_mode">tree,form,search</field>
+        </record>
+
+        <menuitem id="root_menu_property" name="Property">
+            <menuitem id="menu_property" name="Property" action="action_property_property_view"/>
+        </menuitem>
+    </data>
+</odoo>
